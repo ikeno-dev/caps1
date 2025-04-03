@@ -98,8 +98,16 @@
 
         .order-controls {
             display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 5px;
+        }
+
+        .quantity-add-container {
+            display: flex;
+            flex-direction: row;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
         }
 
         .quantity-selector {
@@ -128,10 +136,28 @@
             cursor: pointer;
             border-radius: 3px;
             font-size: 0.9em;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .customize-button:hover {
             background-color: #1976D2;
+        }
+
+        .add-to-cart {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 0.9em;
+            width: auto;
+            box-sizing: border-box;
+        }
+
+        .add-to-cart:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -156,12 +182,14 @@
                     <p class="description">Refreshing and flavorful with a green twist.</p>
                     <p class="price">₱299.00</p>
                     <div class="order-controls">
-                        <div class="quantity-selector">
-                            <button class="minus">-</button>
-                            <span class="quantity">0</span>
-                            <button class="plus">+</button>
+                        <div class="quantity-add-container">
+                            <div class="quantity-selector">
+                                <button class="minus">-</button>
+                                <span class="quantity">0</span>
+                                <button class="plus">+</button>
+                            </div>
+                            <button class="add-to-cart" data-name="Daisuki Midori Ramen" data-price="299">Add to Order</button>
                         </div>
-                        <button class="add-to-cart" data-name="Daisuki Midori Ramen" data-price="299">Add to Order</button>
                         <button class="customize-button" data-name="Daisuki Midori Ramen" data-price="299">Customize</button>
                     </div>
                 </div>
@@ -172,12 +200,14 @@
                     <p class="description">Bold and fiery, for a spicy kick.</p>
                     <p class="price">₱299.00</p>
                     <div class="order-controls">
-                        <div class="quantity-selector">
-                            <button class="minus">-</button>
-                            <span class="quantity">0</span>
-                            <button class="plus">+</button>
+                        <div class="quantity-add-container">
+                            <div class="quantity-selector">
+                                <button class="minus">-</button>
+                                <span class="quantity">0</span>
+                                <button class="plus">+</button>
+                            </div>
+                            <button class="add-to-cart" data-name="Daisuki Spicy Ramen" data-price="299">Add to Order</button>
                         </div>
-                        <button class="add-to-cart" data-name="Daisuki Spicy Ramen" data-price="299">Add to Order</button>
                         <button class="customize-button" data-name="Daisuki Spicy Ramen" data-price="299">Customize</button>
                     </div>
                 </div>
@@ -188,12 +218,14 @@
                     <p class="description">Classic rich pork broth with tender noodles.</p>
                     <p class="price">₱299.00</p>
                     <div class="order-controls">
-                        <div class="quantity-selector">
-                            <button class="minus">-</button>
-                            <span class="quantity">0</span>
-                            <button class="plus">+</button>
+                        <div class="quantity-add-container">
+                            <div class="quantity-selector">
+                                <button class="minus">-</button>
+                                <span class="quantity">0</span>
+                                <button class="plus">+</button>
+                            </div>
+                            <button class="add-to-cart" data-name="Tonkatsu Original Ramen" data-price="299">Add to Order</button>
                         </div>
-                        <button class="add-to-cart" data-name="Tonkatsu Original Ramen" data-price="299">Add to Order</button>
                         <button class="customize-button" data-name="Tonkatsu Original Ramen" data-price="299">Customize</button>
                     </div>
                 </div>
@@ -204,12 +236,14 @@
                     <p class="description">Rich and flavorful noodle soup with savory topping and spicy yet creamy soup broth.</p>
                     <p class="price">₱320.00</p>
                     <div class="order-controls">
-                        <div class="quantity-selector">
-                            <button class="minus">-</button>
-                            <span class="quantity">0</span>
-                            <button class="plus">+</button>
+                        <div class="quantity-add-container">
+                            <div class="quantity-selector">
+                                <button class="minus">-</button>
+                                <span class="quantity">0</span>
+                                <button class="plus">+</button>
+                            </div>
+                            <button class="add-to-cart" data-name="Tantamen Ramen" data-price="320">Add to Order</button>
                         </div>
-                        <button class="add-to-cart" data-name="Tantamen Ramen" data-price="320">Add to Order</button>
                         <button class="customize-button" data-name="Tantamen Ramen" data-price="320">Customize</button>
                     </div>
                 </div>
@@ -220,12 +254,14 @@
                     <p class="description">Salt-flavored ramen features a light, clear broth with simple chicken stock and dashi.</p>
                     <p class="price">₱320.00</p>
                     <div class="order-controls">
-                        <div class="quantity-selector">
-                            <button class="minus">-</button>
-                            <span class="quantity">0</span>
-                            <button class="plus">+</button>
+                        <div class="quantity-add-container">
+                            <div class="quantity-selector">
+                                <button class="minus">-</button>
+                                <span class="quantity">0</span>
+                                <button class="plus">+</button>
+                            </div>
+                            <button class="add-to-cart" data-name="Shio Ramen" data-price="320">Add to Order</button>
                         </div>
-                        <button class="add-to-cart" data-name="Shio Ramen" data-price="320">Add to Order</button>
                         <button class="customize-button" data-name="Shio Ramen" data-price="320">Customize</button>
                     </div>
                 </div>
@@ -236,12 +272,14 @@
                     <p class="description">A flavorful pork-bone broth with wavy noodles.</p>
                     <p class="price">₱320.00</p>
                     <div class="order-controls">
-                        <div class="quantity-selector">
-                            <button class="minus">-</button>
-                            <span class="quantity">0</span>
-                            <button class="plus">+</button>
+                        <div class="quantity-add-container">
+                            <div class="quantity-selector">
+                                <button class="minus">-</button>
+                                <span class="quantity">0</span>
+                                <button class="plus">+</button>
+                            </div>
+                            <button class="add-to-cart" data-name="Shoyu Ramen" data-price="320">Add to Order</button>
                         </div>
-                        <button class="add-to-cart" data-name="Shoyu Ramen" data-price="320">Add to Order</button>
                         <button class="customize-button" data-name="Shoyu Ramen" data-price="320">Customize</button>
                     </div>
                 </div>
@@ -252,28 +290,32 @@
                     <p class="description">A flavorful pork-bone broth with wavy noodles.</p>
                     <p class="price">₱295.00</p>
                     <div class="order-controls">
-                        <div class="quantity-selector">
-                            <button class="minus">-</button>
-                            <span class="quantity">0</span>
-                            <button class="plus">+</button>
+                        <div class="quantity-add-container">
+                            <div class="quantity-selector">
+                                <button class="minus">-</button>
+                                <span class="quantity">0</span>
+                                <button class="plus">+</button>
+                            </div>
+                            <button class="add-to-cart" data-name="Miso Ramen" data-price="295">Add to Order</button>
                         </div>
-                        <button class="add-to-cart" data-name="Miso Ramen" data-price="295">Add to Order</button>
                         <button class="customize-button" data-name="Miso Ramen" data-price="295">Customize</button>
                     </div>
                 </div>
 
                 <div class="menu-item">
-                    <img src="ramen-images/Chasu_ramen.jpg" alt="Chasu Ramen">
+                    <img src="ramen-images/Chashu_ramen.jpg" alt="Chasu Ramen">
                     <h3>Chasu Ramen</h3>
                     <p class="description">A pork belly that's rolled and braised in a flavorful mix.</p>
                     <p class="price">₱360.00</p>
                     <div class="order-controls">
-                        <div class="quantity-selector">
-                            <button class="minus">-</button>
-                            <span class="quantity">0</span>
-                            <button class="plus">+</button>
+                        <div class="quantity-add-container">
+                            <div class="quantity-selector">
+                                <button class="minus">-</button>
+                                <span class="quantity">0</span>
+                                <button class="plus">+</button>
+                            </div>
+                            <button class="add-to-cart" data-name="Chasu Ramen" data-price="360">Add to Order</button>
                         </div>
-                        <button class="add-to-cart" data-name="Chasu Ramen" data-price="360">Add to Order</button>
                         <button class="customize-button" data-name="Chasu Ramen" data-price="360">Customize</button>
                     </div>
                 </div>
@@ -324,7 +366,7 @@
             <h3>Customize Your Order</h3>
             <p id="custom-item-name"></p>
             <div id="ingredient-selection">
-                </div>
+            </div>
             <button id="confirm-customization">Confirm</button>
             <button id="cancel-customization">Cancel</button>
         </div>
