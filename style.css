@@ -202,3 +202,28 @@ body {
 .menu-item .customize-button:hover {
   background-color: #1976D2;
 }
+
+/* Checkout Button (Styled like Add to Order) */
+#checkout {
+  background-color: #4CAF50;
+  color: white;
+  padding: 6px 10px; /* match padding */
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1em; /*match font-size */
+  width: auto;
+  box-sizing: border-box;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
+  align-self: center;
+  height: 30px; /* match height */
+  display: flex;
+  align-items: center;
+}
+
+#checkout:hover {
+  background-color: #45a049;
+  transform: scale(1.03);
+}
