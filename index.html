@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Daisuki Cart - Japanese Food</title>
     <link rel="stylesheet" href="style.css">
-
     <style>
         /* Add this style for the remove button in the cart */
         .remove-item {
-            background-color: #f44336; /* Red color */
+            background-color: #f44336;
             color: white;
             border: none;
             padding: 5px 10px;
@@ -36,6 +35,7 @@
             display: none;
             z-index: 1001;
         }
+
         .overlay {
             position: fixed;
             top: 0;
@@ -62,19 +62,24 @@
             max-width: 400px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
         .customization-section h3 {
             text-align: center;
             color: #d84315;
         }
+
         .customization-section label {
             display: block;
             margin: 10px 0;
             font-weight: bold;
             color: #5d4037;
         }
-        .customization-section select, .customization-section input[type="checkbox"] {
+
+        .customization-section select,
+        .customization-section input[type="checkbox"] {
             margin-left: 10px;
         }
+
         .customization-section button {
             display: block;
             margin: 10px auto;
@@ -86,6 +91,7 @@
             border-radius: 5px;
             font-size: 1em;
         }
+
         .customization-section button:hover {
             background-color: #e65100;
         }
@@ -115,7 +121,7 @@
         }
 
         .customize-button {
-            background-color: #2196F3; /* Blue color */
+            background-color: #2196F3;
             color: white;
             border: none;
             padding: 8px 12px;
@@ -129,6 +135,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="food-cart">
@@ -316,20 +323,8 @@
         <div class="customization-tab" id="customization-tab">
             <h3>Customize Your Order</h3>
             <p id="custom-item-name"></p>
-            <label>
-                Spice Level:
-                <select id="spice-level">
-                    <option value="Mild">Mild</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Spicy">Spicy</option>
-                </select>
-            </label>
-            <label>
-                Extra Toppings:
-                <input type="checkbox" value="Egg" id="extra-egg"> Egg
-                <input type="checkbox" value="Corn" id="extra-corn"> Corn
-                <input type="checkbox" value="Cheese" id="extra-cheese"> Cheese
-            </label>
+            <div id="ingredient-selection">
+                </div>
             <button id="confirm-customization">Confirm</button>
             <button id="cancel-customization">Cancel</button>
         </div>
@@ -350,7 +345,20 @@
         const confirmButton = document.getElementById('confirm-customization');
         const cancelButton = document.getElementById('cancel-customization');
         const customItemName = document.getElementById('custom-item-name');
+        const ingredientSelection = document.getElementById('ingredient-selection');
         let currentItem = {};
+
+        // Define available ingredients for each dish
+        const dishIngredients = {
+            "Daisuki Midori Ramen": ["Pork Broth", "Basil", "Spinach", "Heiwa", "Haime", "Tare", "Wakame", "Kikurage", "Naruto", "Ramen Noodles", "Onion Leeks", "Dried Nori"],
+            "Daisuki Spicy Ramen": ["Chili oil", "Heiwa", "Haime", "Tare", "Wakame", "Kikurage", "Naruto", "Ramen Noodles", "Ramen Noodles", "Onion Leeks", "Dried Nori"],
+            "Tonkatsu Original Ramen": ["Pork Broth", "Heiwa", "Haime", "Tare", "Wakame", "Kikurage", "Naruto", "Ramen Noodles", "Onion Leeks", "Dried Nori"],
+            "Tantamen Ramen": ["Pork Broth", "Peanut Butter", "Heiwa", "Haime", "Tare", "Wakame", "Kikurage", "Naruto", "Ramen Noodles", "Onion Leeks", "Dried Nori"],
+            "Shio Ramen": ["Sesame Oil", "Wepa", "Tare", "Haime"],
+            "Shoyu Ramen": ["Sesame Oil", "Wepa", "Chasu Broth", "Haime"],
+            "Miso Ramen": ["Corn", "Bean Sprouts", "Tofu", "Seaweed", "Butter"],
+            "Chasu Ramen": ["Pork Broth", "Chasu", "Heiwa", "Haime", "Tare", "Wakame", "Kikurage", "Naruto", "Ramen Noodles", "Onion Leeks", "Dried Nori"]
+        };
 
         const customizeButtons = document.querySelectorAll('.customize-button');
         customizeButtons.forEach(button => {
@@ -360,6 +368,21 @@
                 customItemName.textContent = `Customizing: ${currentItem.name}`;
                 customizationTab.style.display = 'block';
                 overlay.style.display = 'block';
+
+                // Populate ingredient selection
+                ingredientSelection.innerHTML = ""; // Clear previous ingredients
+                const ingredients = dishIngredients[currentItem.name];
+                if (ingredients) {
+                    ingredients.forEach(ingredient => {
+                        const label = document.createElement("label");
+                        const checkbox = document.createElement("input");
+                        checkbox.type = "checkbox";
+                        checkbox.value = ingredient;
+                        label.appendChild(checkbox);
+                        label.appendChild(document.createTextNode(" " + ingredient));
+                        ingredientSelection.appendChild(label);
+                    });
+                }
             });
         });
 
@@ -374,13 +397,13 @@
         }
 
         confirmButton.addEventListener('click', function() {
-            const spiceLevel = document.getElementById('spice-level').value;
-            const toppings = [];
-            if (document.getElementById('extra-egg').checked) toppings.push('Egg');
-            if (document.getElementById('extra-corn').checked) toppings.push('Corn');
-            if (document.getElementById('extra-cheese').checked) toppings.push('Cheese');
+            const selectedIngredients = [];
+            const checkboxes = ingredientSelection.querySelectorAll('input[type="checkbox"]:checked');
+            checkboxes.forEach(checkbox => {
+                selectedIngredients.push(checkbox.value);
+            });
 
-            alert(`Added to cart: ${currentItem.name}\nSpice Level: ${spiceLevel}\nToppings: ${toppings.join(', ') || 'None'}`);
+            alert(`Added to cart: ${currentItem.name}\nIngredients: ${selectedIngredients.join(', ') || 'None'}`);
             customizationTab.style.display = 'none';
             overlay.style.display = 'none';
 
@@ -390,8 +413,7 @@
                 price: parseFloat(currentItem.price),
                 quantity: 1,
                 customizations: {
-                    spiceLevel: spiceLevel,
-                    toppings: toppings
+                    ingredients: selectedIngredients
                 }
             };
             addToCart(customizedItem);
@@ -415,12 +437,7 @@
                 const listItem = document.createElement('li');
                 let itemText = `${item.name} x ${item.quantity}`;
                 if (item.customizations) {
-                    itemText += ` (Customized: ${item.customizations.spiceLevel}`;
-                    if (item.customizations.toppings.length > 0) {
-                        itemText += `, ${item.customizations.toppings.join(', ')})`;
-                    } else {
-                        itemText += ')';
-                    }
+                    itemText += ` (Ingredients: ${item.customizations.ingredients.join(', ') || 'None'})`;
                 }
                 listItem.innerHTML = `
                     <span>${itemText}</span>
@@ -520,4 +537,5 @@
         });
     </script>
 </body>
+
 </html>
