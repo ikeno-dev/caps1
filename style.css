@@ -1,4 +1,4 @@
-/* General Body Styles */
+/* General Body Styles (Keep as is) */
 body {
   font-family: 'Arial', sans-serif;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.4)),
@@ -13,7 +13,7 @@ body {
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
 }
 
-/* Food Cart Container */
+/* Food Cart Container (Keep as is) */
 .food-cart {
   width: 95%;
   max-width: 600px;
@@ -25,7 +25,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Cart Header */
+/* Cart Header (Keep as is) */
 .cart-header {
   background-color: rgba(0, 0, 0, 0.6);
   padding: 20px;
@@ -56,7 +56,7 @@ body {
   font-style: italic;
 }
 
-/* Cart Menu */
+/* Cart Menu (Keep as is) */
 .cart-menu {
   padding: 20px;
 }
@@ -73,6 +73,7 @@ body {
   gap: 15px;
 }
 
+/* Menu Item Styles (Keep as is - this is what the image shows) */
 .menu-item {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 8px;
@@ -114,7 +115,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* Button Animations */
+/* Button Animations (Keep as is) */
 .order-controls {
   display: flex;
   flex-direction: column;
@@ -166,17 +167,17 @@ body {
 .menu-item .add-to-cart {
   background-color: #4CAF50;
   color: white;
-  padding: 6px 10px; /* match padding */
+  padding: 6px 10px;
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 1em; /*match font-size */
+  font-size: 1em;
   width: auto;
   box-sizing: border-box;
   font-weight: 600;
   transition: background-color 0.3s ease, transform 0.2s ease;
   margin-top: 5px;
-  height: 30px; /* match height */
+  height: 30px;
   display: flex;
   align-items: center;
 }
@@ -203,22 +204,22 @@ body {
   background-color: #1976D2;
 }
 
-/* Checkout Button (Styled like Add to Order) */
+/* Checkout Button (Keep as is) */
 #checkout {
   background-color: #4CAF50;
   color: white;
-  padding: 6px 10px; /* match padding */
+  padding: 6px 10px;
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 1em; /*match font-size */
+  font-size: 1em;
   width: auto;
   box-sizing: border-box;
   font-weight: 600;
   transition: background-color 0.3s ease, transform 0.2s ease;
   margin-top: 20px;
   align-self: center;
-  height: 30px; /* match height */
+  height: 30px;
   display: flex;
   align-items: center;
 }
@@ -227,3 +228,85 @@ body {
   background-color: #45a049;
   transform: scale(1.03);
 }
+
+/* ---  GRID LAYOUT FOR CUSTOMIZATION SECTION ONLY  ---  */
+
+#customization-tab #ingredient-selection {
+  display: grid; /* Use grid layout */
+  grid-template-columns: repeat(3, auto); /* 3 columns, auto width */
+  gap: 5px 10px; /* Row gap, column gap */
+  justify-content: start; /* Align to the start */
+}
+
+#customization-tab #ingredient-selection label {
+  display: flex; /* Use flexbox for label alignment */
+  align-items: center; /* Center vertically */
+  margin-right: 0; /* Remove default right margin */
+  margin-bottom: 0; /* Remove default bottom margin */
+  font-size: 0.9em;
+  color: #333;
+}
+
+#customization-tab #ingredient-selection input[type="checkbox"] {
+  margin-right: 3px;
+}
+
+#customization-tab {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: none;
+  z-index: 1001;
+  text-align: left;
+  border: 1px solid #ccc;
+  color: #333;
+  text-shadow: none;
+}
+
+#customization-tab h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #333;
+}
+
+#customization-tab p#custom-item-name {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1em;
+  color: #666;
+}
+
+#customization-tab button {
+  padding: 6px 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  color: #333;
+  border-radius: 3px;
+  font-size: 0.9em;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+#customization-tab button:hover {
+  background-color: #e0e0e0;
+  border-color: #999;
+}
+
+#customization-tab button#cancel-customization {
+  margin-left: 5px;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+#customization-tab button#cancel-customization:hover {
+  background-color: #e0e0e0;
+}
+
+/* ---  END OF GRID LAYOUT  ---  */
