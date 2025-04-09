@@ -7,7 +7,7 @@
     <title>Daisuki Cart - Japanese Food</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Add this style for the remove button in the cart */
+        /* (Your existing CSS styles - keep them) */
         .remove-item {
             background-color: #f44336;
             color: white;
@@ -159,6 +159,84 @@
         .add-to-cart:hover {
             background-color: #45a049;
         }
+
+        .customize-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .customize-btn {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #ff6f61;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+        }
+
+        .customize-btn:hover {
+            background-color: #e65a50;
+            transform: scale(1.05);
+        }
+
+        .customize-btn:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 111, 97, 0.8);
+        }
+
+        #order-mode-display {
+            font-size: 20px;
+            font-weight: bold;
+            color: #d9534f;
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #d9534f;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        #order-info {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(235, 235, 235, 0.2);
+            border: 2px solid rgb(33, 28, 28);
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        /* Improved Cart Display */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-total {
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -171,7 +249,72 @@
             <p class="tagline">Authentic Flavors on the Go!</p>
         </header>
 
-        <button id="customize-bowl-btn" class="customize-btn">Customize Your Own Bowl</button>
+        <p id="order-info">Fetching order details...</p>
+
+        <section id="customize-section" class="customize-section">
+            <h2>Build Your Own Ramen</h2>
+            <p>Can't find the perfect bowl? Customize your own!</p>
+            <button id="customize-bowl-btn" class="customize-btn">Customize Your Own Bowl</button>
+        </section>
+
+        <div class="customization-section" id="customization-section">
+            <h3>Customize Your Own Ramen</h3>
+            <label>
+                Apply Customization To:
+                <select id="customize-target-bowl">
+                    <option value="new">Add as New Bowl</option>
+                    </select>
+            </label>
+            <label>
+                Choose Broth:
+                <select id="broth-type">
+                    <option value="Shoyu">Shoyu</option>
+                    <option value="Miso">Miso</option>
+                    <option value="Tonkotsu">Tonkotsu</option>
+                    <option value="Shio">Shio</option>
+                    <option value="Chasu">Chasu</option>
+                </select>
+            </label>
+            <label>
+                Choose Protein:
+                <select id="protein-type">
+                    <option value="Chicken">Chicken</option>
+                    <option value="Pork">Pork</option>
+                    <option value="Beef">Beef</option>
+                    <option value="Tofu">Tofu</option>
+                </select>
+            </label>
+            <label>
+                Select Ingredients:
+                <input type="checkbox" value="Tamago"> Tamago
+                <input type="checkbox" value="Corn"> Corn
+                <input type="checkbox" value="Cheese"> Cheese
+                <input type="checkbox" value="Basil"> Basil
+                <input type="checkbox" value="Spinach"> Spinach
+                <input type="checkbox" value="Tare"> Tare
+                <input type="checkbox" value="Wakame"> Wakame
+                <input type="checkbox" value="Kikurage"> Kikurage
+                <input type="checkbox" value="Naruto"> Naruto
+                <input type="checkbox" value="Onion Leeks"> Onion Leeks
+                <input type="checkbox" value="Dried Nori"> Dried Nori
+                <input type="checkbox" value="Chili oil"> Chili oil
+                <input type="checkbox" value="Peanut Butter"> Peanut Butter
+                <input type="checkbox" value="Sesame Oil"> Sesame Oil
+                <input type="checkbox" value="Bean Sprouts"> Bean Sprouts
+                <input type="checkbox" value="Butter"> Butter
+                <input type="checkbox" value="Chasu"> Chasu
+            </label>
+            <label>
+                Spice Level:
+                <select id="spice-level-custom">
+                    <option value="Mild">Mild</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Spicy">Spicy</option>
+                </select>
+            </label>
+            <button id="confirm-custom-bowl">Apply Customization</button>
+            <button id="cancel-custom-bowl">Cancel</button>
+        </div>
 
         <section class="cart-menu">
             <h2>Our Delicious Menu</h2>
@@ -188,7 +331,8 @@
                                 <span class="quantity">0</span>
                                 <button class="plus">+</button>
                             </div>
-                            <button class="add-to-cart" data-name="Daisuki Midori Ramen" data-price="299">Add to Order</button>
+                            <button class="add-to-cart" data-name="Daisuki Midori Ramen" data-price="299">Add to
+                                Order</button>
                         </div>
                         <button class="customize-button" data-name="Daisuki Midori Ramen" data-price="299">Customize</button>
                     </div>
@@ -206,7 +350,8 @@
                                 <span class="quantity">0</span>
                                 <button class="plus">+</button>
                             </div>
-                            <button class="add-to-cart" data-name="Daisuki Spicy Ramen" data-price="299">Add to Order</button>
+                            <button class="add-to-cart" data-name="Daisuki Spicy Ramen" data-price="299">Add to
+                                Order</button>
                         </div>
                         <button class="customize-button" data-name="Daisuki Spicy Ramen" data-price="299">Customize</button>
                     </div>
@@ -224,7 +369,8 @@
                                 <span class="quantity">0</span>
                                 <button class="plus">+</button>
                             </div>
-                            <button class="add-to-cart" data-name="Tonkatsu Original Ramen" data-price="299">Add to Order</button>
+                            <button class="add-to-cart" data-name="Tonkatsu Original Ramen" data-price="299">Add to
+                                Order</button>
                         </div>
                         <button class="customize-button" data-name="Tonkatsu Original Ramen" data-price="299">Customize</button>
                     </div>
@@ -322,45 +468,6 @@
             </div>
         </section>
 
-        <div class="customization-section" id="customization-section">
-            <h3>Customize Your Own Ramen</h3>
-            <label>
-                Choose Broth:
-                <select id="broth-type">
-                    <option value="Shoyu">Shoyu</option>
-                    <option value="Miso">Miso</option>
-                    <option value="Tonkotsu">Tonkotsu</option>
-                    <option value="Shio">Shio</option>
-                </select>
-            </label>
-            <label>
-                Choose Protein:
-                <select id="protein-type">
-                    <option value="Chicken">Chicken</option>
-                    <option value="Pork">Pork</option>
-                    <option value="Beef">Beef</option>
-                    <option value="Tofu">Tofu</option>
-                </select>
-            </label>
-            <label>
-                Extra Toppings:
-                <input type="checkbox" value="Egg"> Egg
-                <input type="checkbox" value="Corn"> Corn
-                <input type="checkbox" value="Cheese"> Cheese
-                <input type="checkbox" value="Seaweed"> Seaweed
-            </label>
-            <label>
-                Spice Level:
-                <select id="spice-level-custom">
-                    <option value="Mild">Mild</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Spicy">Spicy</option>
-                </select>
-            </label>
-            <button id="confirm-custom-bowl">Add to Order</button>
-            <button id="cancel-custom-bowl">Cancel</button>
-        </div>
-
         <div class="overlay" id="overlay"></div>
         <div class="customization-tab" id="customization-tab">
             <h3>Customize Your Order</h3>
@@ -388,7 +495,18 @@
         const cancelButton = document.getElementById('cancel-customization');
         const customItemName = document.getElementById('custom-item-name');
         const ingredientSelection = document.getElementById('ingredient-selection');
+        const menuItems = document.querySelectorAll('.menu-item');
+        const cartItemsList = document.getElementById('cart-items');
+        const cartTotalDisplay = document.getElementById('cart-total');
+        const checkoutButton = document.getElementById('checkout');
+        const customizeButtons = document.querySelectorAll('.customize-button');
+        const customizeBowlButton = document.getElementById('customize-bowl-btn');
+        const cancelCustomBowlButton = document.getElementById('cancel-custom-bowl');
+        const customizationSection = document.getElementById('customization-section');
+
+        let cart = [];
         let currentItem = {};
+        let bowlCounter = 1; // Start the overall bowl counter at 1
 
         // Define available ingredients for each dish
         const dishIngredients = {
@@ -402,98 +520,86 @@
             "Chasu Ramen": ["Pork Broth", "Chasu", "Heiwa", "Haime", "Tare", "Wakame", "Kikurage", "Naruto", "Ramen Noodles", "Onion Leeks", "Dried Nori"]
         };
 
-        const customizeButtons = document.querySelectorAll('.customize-button');
-        customizeButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                currentItem.name = this.dataset.name;
-                currentItem.price = this.dataset.price;
-                customItemName.textContent = `Customizing: ${currentItem.name}`;
-                customizationTab.style.display = 'block';
-                overlay.style.display = 'block';
+        // --- Helper Functions ---
 
-                // Populate ingredient selection
-                ingredientSelection.innerHTML = ""; // Clear previous ingredients
-                const ingredients = dishIngredients[currentItem.name];
-                if (ingredients) {
-                    ingredients.forEach(ingredient => {
-                        const label = document.createElement("label");
-                        const checkbox = document.createElement("input");
-                        checkbox.type = "checkbox";
-                        checkbox.value = ingredient;
-                        label.appendChild(checkbox);
-                        label.appendChild(document.createTextNode(" " + ingredient));
-                        ingredientSelection.appendChild(label);
-                    });
-                }
-            });
-        });
+        function show(element) {
+            element.style.display = 'block';
+        }
+
+        function hide(element) {
+            element.style.display = 'none';
+        }
+
+        function clearElement(element) {
+            element.innerHTML = '';
+        }
+
+        // --- Cart Functions ---
 
         function addToCart(item) {
-            const existingItem = cart.find(cartItem => cartItem.name === item.name);
-            if (existingItem) {
-                existingItem.quantity += item.quantity;
-            } else {
-                cart.push(item);
-            }
+            cart.push({ ...item, quantity: item.quantity, bowlNumber: bowlCounter++ });
             updateCartDisplay();
         }
 
-        confirmButton.addEventListener('click', function() {
-            const selectedIngredients = [];
-            const checkboxes = ingredientSelection.querySelectorAll('input[type="checkbox"]:checked');
-            checkboxes.forEach(checkbox => {
-                selectedIngredients.push(checkbox.value);
+        function updateCartDisplay() {
+            clearElement(cartItemsList);
+            let total = 0;
+
+            bowlCounter = 1;
+            cart.forEach(item => {
+                item.bowlNumber = bowlCounter++;
             });
 
-            alert(`Added to cart: ${currentItem.name}\nIngredients: ${selectedIngredients.join(', ') || 'None'}`);
-            customizationTab.style.display = 'none';
-            overlay.style.display = 'none';
-
-            // Add the customized item to the cart
-            const customizedItem = {
-                name: currentItem.name,
-                price: parseFloat(currentItem.price),
-                quantity: 1,
-                customizations: {
-                    ingredients: selectedIngredients
-                }
-            };
-            addToCart(customizedItem);
-        });
-
-        cancelButton.addEventListener('click', function() {
-            customizationTab.style.display = 'none';
-            overlay.style.display = 'none';
-        });
-
-        const menuItems = document.querySelectorAll('.menu-item');
-        const cartItemsList = document.getElementById('cart-items');
-        const cartTotalDisplay = document.getElementById('cart-total');
-        const checkoutButton = document.getElementById('checkout');
-        let cart = [];
-
-        function updateCartDisplay() {
-            cartItemsList.innerHTML = '';
-            let total = 0;
             cart.forEach((item, index) => {
                 const listItem = document.createElement('li');
-                let itemText = `${item.name} x ${item.quantity}`;
+                listItem.classList.add('cart-item');
+
+                let itemText = `<div class="cart-item-details">${item.name}`;
+
                 if (item.customizations) {
-                    itemText += ` (Ingredients: ${item.customizations.ingredients.join(', ') || 'None'})`;
+                    const customizationsArray = [];
+                    if (item.customizations.broth) {
+                        customizationsArray.push(`Broth: ${item.customizations.broth}`);
+                    }
+                    if (item.customizations.protein) {
+                        customizationsArray.push(`Protein: ${item.customizations.protein}`);
+                    }
+                    if (item.customizations.ingredients && item.customizations.ingredients.length > 0) {
+                        customizationsArray.push(`Ingredients: ${item.customizations.ingredients.join(', ')}`);
+                    }
+                    if (item.customizations.spiceLevel) {
+                        customizationsArray.push(`Spice: ${item.customizations.spiceLevel}`);
+                    }
+                    if (customizationsArray.length > 0) {
+                        itemText += ` (${customizationsArray.join(', ')})`;
+                    }
                 }
+
+                if (item.quantity > 1) {
+                    itemText += ` x ${item.quantity}`;
+                }
+
+                itemText += ` (Bowl ${item.bowlNumber})`;
+
                 listItem.innerHTML = `
-                    <span>${itemText}</span>
-                    <span>₱${(item.price * item.quantity).toFixed(2)}</span>
+                    ${itemText}
+                    <span class="cart-item-total">₱${(item.price * item.quantity).toFixed(2)}</span>
                     <button class="remove-item" data-index="${index}">Remove</button>
                 `;
+
                 cartItemsList.appendChild(listItem);
                 total += item.price * item.quantity;
             });
-            cartTotalDisplay.textContent = `₱${total.toFixed(2)}`;
 
+            cartTotalDisplay.textContent = `₱${total.toFixed(2)}`;
+            updateRemoveButtons();
+            updateCustomizeBowlOptions();
+        }
+
+        function updateRemoveButtons() {
             const removeButtons = document.querySelectorAll('.remove-item');
             removeButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const indexToRemove = parseInt(this.dataset.index);
                     removeItemFromCart(indexToRemove);
                 });
@@ -502,9 +608,12 @@
 
         function removeItemFromCart(index) {
             cart.splice(index, 1);
-            updateCartDisplay();
+            updateCartDisplay(); // Re-number bowls after removal
         }
 
+        // --- Event Listeners ---
+
+        // Quantity controls
         menuItems.forEach(itemElement => {
             const minusButton = itemElement.querySelector('.quantity-selector .minus');
             const plusButton = itemElement.querySelector('.quantity-selector .plus');
@@ -515,7 +624,7 @@
             quantityDisplay.textContent = currentQuantity;
 
             if (minusButton) {
-                minusButton.addEventListener('click', function(event) {
+                minusButton.addEventListener('click', function (event) {
                     event.stopPropagation();
                     if (currentQuantity > 0) {
                         currentQuantity--;
@@ -525,7 +634,7 @@
             }
 
             if (plusButton) {
-                plusButton.addEventListener('click', function(event) {
+                plusButton.addEventListener('click', function (event) {
                     event.stopPropagation();
                     currentQuantity++;
                     quantityDisplay.textContent = currentQuantity;
@@ -533,7 +642,7 @@
             }
 
             if (addToCartButton) {
-                addToCartButton.addEventListener('click', function() {
+                addToCartButton.addEventListener('click', function () {
                     const itemName = this.dataset.name;
                     const itemPrice = parseFloat(this.dataset.price);
                     const quantityToAdd = parseInt(quantityDisplay.textContent);
@@ -556,11 +665,13 @@
             }
         });
 
+        // Checkout
         if (checkoutButton) {
-            checkoutButton.addEventListener('click', function() {
+            checkoutButton.addEventListener('click', function () {
                 if (cart.length > 0) {
                     alert(`Thank you for your order!\nTotal: ${cartTotalDisplay.textContent}`);
                     cart = [];
+                    bowlCounter = 1; // Reset bowl counter on checkout
                     updateCartDisplay();
                 } else {
                     alert('Your cart is empty. Please add items to your order.');
@@ -568,14 +679,186 @@
             });
         }
 
-        updateCartDisplay();
+        // Customization
+        const customizeExistingBowlSelect = document.getElementById('customize-target-bowl');
+        const brothTypeSelect = document.getElementById('broth-type');
+        const proteinTypeSelect = document.getElementById('protein-type');
+        const ingredientCheckboxes = customizationSection.querySelectorAll('input[type="checkbox"]');
+        const spiceLevelSelect = document.getElementById('spice-level-custom');
+        const confirmCustomBowlButton = document.getElementById('confirm-custom-bowl');
 
-        document.getElementById('customize-bowl-btn').addEventListener('click', function() {
-            document.getElementById('customization-section').style.display = 'block';
+        customizeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                currentItem.name = this.dataset.name;
+                currentItem.price = this.dataset.price;
+                customItemName.textContent = `Customizing: ${currentItem.name} (Bowl ${bowlCounter})`;
+                show(customizationTab);
+                show(overlay);
+                populateIngredientSelection();
+                updateCustomizeBowlOptions();
+            });
         });
 
-        document.getElementById('cancel-custom-bowl').addEventListener('click', function() {
-            document.getElementById('customization-section').style.display = 'none';
+        confirmButton.addEventListener('click', function () {
+            const selectedIngredients = Array.from(ingredientSelection.querySelectorAll('input[type="checkbox"]:checked'))
+                .map(checkbox => checkbox.value);
+
+            alert(`Added to cart: ${currentItem.name} (Bowl ${bowlCounter})\nIngredients: ${selectedIngredients.join(', ') || 'None'}`);
+            hide(customizationTab);
+            hide(overlay);
+
+            const customizedItem = {
+                name: currentItem.name,
+                price: parseFloat(currentItem.price),
+                quantity: 1,
+                customizations: {
+                    ingredients: selectedIngredients
+                },
+                bowlNumber: bowlCounter++
+            };
+            addToCart(customizedItem);
+        });
+
+        cancelButton.addEventListener('click', function () {
+            hide(customizationTab);
+            hide(overlay);
+        });
+
+        customizeBowlButton.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert("Please add a dish to your order first before customizing.");
+            } else {
+                show(customizationSection);
+                populateCustomizeTargetBowls();
+            }
+        });
+
+        cancelCustomBowlButton.addEventListener('click', () => hide(customizationSection));
+
+        confirmCustomBowlButton.addEventListener('click', () => {
+            const targetBowl = customizeExistingBowlSelect.value;
+            const selectedBroth = document.getElementById('broth-type').value;
+            const selectedProtein = document.getElementById('protein-type').value;
+            const selectedIngredients = Array.from(customizationSection.querySelectorAll('input[type="checkbox"]:checked'))
+                .map(checkbox => checkbox.value);
+            const selectedSpiceLevel = document.getElementById('spice-level-custom').value;
+
+            const customizationDetails = {
+                broth: selectedBroth,
+                protein: selectedProtein,
+                ingredients: selectedIngredients,
+                spiceLevel: selectedSpiceLevel
+            };
+
+            if (targetBowl === 'new') {
+                // Add as a new bowl
+                const newBowl = {
+                    name: `Custom Ramen (Bowl ${bowlCounter})`,
+                    price: 350.00,
+                    quantity: 1,
+                    customizations: customizationDetails,
+                    bowlNumber: bowlCounter++
+                };
+                addToCart(newBowl);
+                alert(`New custom bowl added: ${newBowl.name}`);
+            } else {
+                // Apply to an existing bowl
+                const bowlToUpdate = cart.find(bowl => bowl.bowlNumber === parseInt(targetBowl));
+                if (bowlToUpdate) {
+                    bowlToUpdate.customizations = customizationDetails;
+                    updateCartDisplay();
+                    alert(`Customization applied to ${bowlToUpdate.name} (Bowl ${bowlToUpdate.bowlNumber})`);
+                } else {
+                    alert('Error: Bowl not found.');
+                }
+            }
+
+            hide(customizationSection);
+        });
+
+        // --- Initialization ---
+
+        function populateIngredientSelection() {
+            clearElement(ingredientSelection);
+            const ingredients = dishIngredients[currentItem.name];
+            if (ingredients) {
+                ingredients.forEach(ingredient => {
+                    const label = document.createElement("label");
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.value = ingredient;
+                    label.appendChild(checkbox);
+                    label.appendChild(document.createTextNode(" " + ingredient));
+                    ingredientSelection.appendChild(label);
+                });
+            }
+        }
+
+        function fetchOrderInfo() {
+            const orderMode = localStorage.getItem("orderMode") || "Not Selected";
+            const orderNumber = localStorage.getItem("orderNumber") || "N/A";
+            document.getElementById("order-info").innerHTML = `Order Mode: ${orderMode} <br> Order No: ${orderNumber}`;
+        }
+
+        function fetchMenu() {
+            fetch("fetch_menu.php")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    let menuContainer = document.getElementById("menu-list");
+                    if (menuContainer) {
+                        clearElement(menuContainer);
+
+                        data.forEach(item => {
+                            menuContainer.innerHTML += `
+                                <div class="menu-item">
+                                    <img src="${item.image}" alt="${item.name}" width="100">
+                                    <h3>${item.name}</h3>
+                                    <p>${item.description}</p>
+                                    <p>₱${item.price}</p>
+                                    <button onclick="addToOrder(${item.price})">Add to Order</button>
+                                </div>
+                            `;
+                        });
+                    }
+                })
+                .catch(error => console.error("Error fetching menu:", error));
+        }
+
+        function updateCustomizeBowlOptions() {
+            clearElement(customizeExistingBowlSelect);
+            const newOption = document.createElement('option');
+            newOption.value = 'new';
+            newOption.textContent = 'Add as a New Bowl';
+            customizeExistingBowlSelect.appendChild(newOption);
+
+            cart.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.bowlNumber;
+                option.textContent = `${item.name} (Bowl ${item.bowlNumber})`;
+                customizeExistingBowlSelect.appendChild(option);
+            });
+        }
+
+        // Function to update order total (if you still need it separately)
+        let total = 0;
+
+        function addToOrder(price) {
+            total += parseFloat(price);
+            document.getElementById("cart-total").innerText = `Total: ₱${total.toFixed(2)}`;
+        }
+
+        // --- Run on Load ---
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchOrderInfo();
+            fetchMenu();
+            updateCartDisplay();
+
         });
     </script>
 </body>
