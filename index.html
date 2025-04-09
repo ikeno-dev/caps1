@@ -257,14 +257,8 @@
             <button id="customize-bowl-btn" class="customize-btn">Customize Your Own Bowl</button>
         </section>
 
-        <div class="customization-section" id="customization-section">
+        <div class="customization-section" id="customization-section-inner" style="display: none;">
             <h3>Customize Your Own Ramen</h3>
-            <label>
-                Apply Customization To:
-                <select id="customize-target-bowl">
-                    <option value="new">Add as New Bowl</option>
-                    </select>
-            </label>
             <label>
                 Choose Broth:
                 <select id="broth-type">
@@ -312,7 +306,7 @@
                     <option value="Spicy">Spicy</option>
                 </select>
             </label>
-            <button id="confirm-custom-bowl">Apply Customization</button>
+            <button id="confirm-custom-bowl">Add Custom Bowl to Order</button>
             <button id="cancel-custom-bowl">Cancel</button>
         </div>
 
@@ -502,11 +496,12 @@
         const customizeButtons = document.querySelectorAll('.customize-button');
         const customizeBowlButton = document.getElementById('customize-bowl-btn');
         const cancelCustomBowlButton = document.getElementById('cancel-custom-bowl');
-        const customizationSection = document.getElementById('customization-section');
+        const customizationSection = document.getElementById('customization-section-inner');
 
         let cart = [];
         let currentItem = {};
         let bowlCounter = 1; // Start the overall bowl counter at 1
+        let lastCustomIngredients = []; // Store the ingredients of the last custom bowl
 
         // Define available ingredients for each dish
         const dishIngredients = {
@@ -593,7 +588,6 @@
 
             cartTotalDisplay.textContent = `₱${total.toFixed(2)}`;
             updateRemoveButtons();
-            updateCustomizeBowlOptions();
         }
 
         function updateRemoveButtons() {
@@ -673,6 +667,7 @@
                     cart = [];
                     bowlCounter = 1; // Reset bowl counter on checkout
                     updateCartDisplay();
+                    lastCustomIngredients = []; // Reset last custom ingredients
                 } else {
                     alert('Your cart is empty. Please add items to your order.');
                 }
@@ -680,7 +675,6 @@
         }
 
         // Customization
-        const customizeExistingBowlSelect = document.getElementById('customize-target-bowl');
         const brothTypeSelect = document.getElementById('broth-type');
         const proteinTypeSelect = document.getElementById('protein-type');
         const ingredientCheckboxes = customizationSection.querySelectorAll('input[type="checkbox"]');
@@ -695,7 +689,6 @@
                 show(customizationTab);
                 show(overlay);
                 populateIngredientSelection();
-                updateCustomizeBowlOptions();
             });
         });
 
@@ -717,6 +710,7 @@
                 bowlNumber: bowlCounter++
             };
             addToCart(customizedItem);
+            lastCustomIngredients = selectedIngredients; // Store the selected ingredients
         });
 
         cancelButton.addEventListener('click', function () {
@@ -725,18 +719,13 @@
         });
 
         customizeBowlButton.addEventListener('click', () => {
-            if (cart.length === 0) {
-                alert("Please add a dish to your order first before customizing.");
-            } else {
-                show(customizationSection);
-                populateCustomizeTargetBowls();
-            }
+            show(customizationSection);
+            populateCustomizeForm(); // Populate form with last custom ingredients
         });
 
         cancelCustomBowlButton.addEventListener('click', () => hide(customizationSection));
 
         confirmCustomBowlButton.addEventListener('click', () => {
-            const targetBowl = customizeExistingBowlSelect.value;
             const selectedBroth = document.getElementById('broth-type').value;
             const selectedProtein = document.getElementById('protein-type').value;
             const selectedIngredients = Array.from(customizationSection.querySelectorAll('input[type="checkbox"]:checked'))
@@ -750,31 +739,39 @@
                 spiceLevel: selectedSpiceLevel
             };
 
-            if (targetBowl === 'new') {
-                // Add as a new bowl
-                const newBowl = {
-                    name: `Custom Ramen (Bowl ${bowlCounter})`,
-                    price: 350.00,
-                    quantity: 1,
-                    customizations: customizationDetails,
-                    bowlNumber: bowlCounter++
-                };
-                addToCart(newBowl);
-                alert(`New custom bowl added: ${newBowl.name}`);
-            } else {
-                // Apply to an existing bowl
-                const bowlToUpdate = cart.find(bowl => bowl.bowlNumber === parseInt(targetBowl));
-                if (bowlToUpdate) {
-                    bowlToUpdate.customizations = customizationDetails;
-                    updateCartDisplay();
-                    alert(`Customization applied to ${bowlToUpdate.name} (Bowl ${bowlToUpdate.bowlNumber})`);
-                } else {
-                    alert('Error: Bowl not found.');
-                }
-            }
-
+            const newBowl = {
+                name: `Custom Ramen (Bowl ${bowlCounter})`,
+                price: 350.00,
+                quantity: 1,
+                customizations: customizationDetails,
+                bowlNumber: bowlCounter++
+            };
+            addToCart(newBowl);
+            alert(`New custom bowl added: ${newBowl.name}`);
             hide(customizationSection);
+            lastCustomIngredients = selectedIngredients; // Store the selected ingredients
         });
+
+        // Function to populate the customize form with the last custom ingredients
+        function populateCustomizeForm() {
+            brothTypeSelect.selectedIndex = 0; // Reset broth
+            proteinTypeSelect.selectedIndex = 0; // Reset protein
+            spiceLevelSelect.selectedIndex = 0; // Reset spice level
+
+            // Uncheck all ingredient checkboxes
+            ingredientCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+
+            // Check the ingredients from the last custom bowl
+            if (lastCustomIngredients && lastCustomIngredients.length > 0) {
+                ingredientCheckboxes.forEach(checkbox => {
+                    if (lastCustomIngredients.includes(checkbox.value)) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
+        }
 
         // --- Initialization ---
 
@@ -829,21 +826,6 @@
                 .catch(error => console.error("Error fetching menu:", error));
         }
 
-        function updateCustomizeBowlOptions() {
-            clearElement(customizeExistingBowlSelect);
-            const newOption = document.createElement('option');
-            newOption.value = 'new';
-            newOption.textContent = 'Add as a New Bowl';
-            customizeExistingBowlSelect.appendChild(newOption);
-
-            cart.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.bowlNumber;
-                option.textContent = `${item.name} (Bowl ${item.bowlNumber})`;
-                customizeExistingBowlSelect.appendChild(option);
-            });
-        }
-
         // Function to update order total (if you still need it separately)
         let total = 0;
 
@@ -858,7 +840,6 @@
             fetchOrderInfo();
             fetchMenu();
             updateCartDisplay();
-
         });
     </script>
 </body>
